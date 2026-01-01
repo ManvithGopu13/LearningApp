@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: resume_learning_mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=resume_learning
+    networks:
+      - resume_learning_network
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: resume_learning_backend
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017
+      - PORT=8080
+    depends_on:
+      - mongodb
+    networks:
+      - resume_learning_network
+
+volumes:
+  mongodb_data:
+    driver: local
+
+networks:
+  resume_learning_network:
+    driver: bridge
