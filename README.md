@@ -322,7 +322,7 @@ DELETE /api/progress/{userId}/reset
 ## 📁 Project Structure
 
 ```
-resume-learning-app/
+LearningApp/
 ├── backend/
 │   ├── main.go                 # Main backend application
 │   ├── go.mod                  # Go dependencies
